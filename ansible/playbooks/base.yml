@@ -1,0 +1,44 @@
+---
+- name: Configure Linux production baseline
+  hosts: linux_servers
+  become: true
+
+  tasks:
+    - name: Update apt package cache
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Install common administration tools
+      apt:
+        name:
+          - curl
+          - vim
+          - nano
+          - htop
+          - net-tools
+          - dnsutils
+          - iproute2
+          - iputils-ping
+          - rsync
+        state: present
+
+    - name: Ensure cron is running
+      service:
+        name: cron
+        state: started
+        enabled: true
+
+    - name: Ensure SSH is running
+      service:
+        name: ssh
+        state: started
+        enabled: true
+
+    - name: Create operations directory
+      file:
+        path: /opt/ops
+        state: directory
+        owner: ops
+        group: ops
+        mode: "0755"

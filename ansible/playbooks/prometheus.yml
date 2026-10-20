@@ -1,0 +1,33 @@
+---
+- name: Configure Prometheus monitoring server
+  hosts: monitoring
+  become: true
+
+  tasks:
+    - name: Install Prometheus
+      apt:
+        name: prometheus
+        state: present
+        update_cache: true
+
+    - name: Deploy Prometheus configuration
+      template:
+        src: ../templates/prometheus.yml.j2
+        dest: /etc/prometheus/prometheus.yml
+        owner: root
+        group: root
+        mode: "0644"
+      notify: Restart Prometheus
+
+    - name: Ensure Prometheus is running
+      systemd:
+        name: prometheus
+        state: started
+        enabled: true
+
+  handlers:
+
+    - name: Restart Prometheus
+      systemd:
+        name: prometheus
+        state: restarted

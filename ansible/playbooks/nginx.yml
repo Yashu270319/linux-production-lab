@@ -1,0 +1,45 @@
+---
+- name: Configure Nginx reverse proxy
+  hosts: nginx
+  become: true
+
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: true
+
+    - name: Remove default Nginx site
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+
+    - name: Deploy production Nginx configuration
+      template:
+        src: ../templates/production-nginx.conf.j2
+        dest: /etc/nginx/sites-available/production.conf
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Enable production Nginx site
+      file:
+        src: /etc/nginx/sites-available/production.conf
+        dest: /etc/nginx/sites-enabled/production.conf
+        state: link
+
+    - name: Test Nginx configuration
+      command: nginx -t
+      changed_when: false
+
+    - name: Ensure Nginx is running
+      service:
+        name: nginx
+        state: started
+        enabled: true
+
+    - name: Reload Nginx
+      service:
+        name: nginx
+        state: reloaded

@@ -1,0 +1,33 @@
+---
+- name: Install and configure Node Exporter on Linux servers
+  hosts: linux_servers
+  become: true
+
+  tasks:
+    - name: Install Node Exporter
+      apt:
+        name: prometheus-node-exporter
+        state: present
+        update_cache: true
+
+    - name: Configure Node Exporter filesystem collector
+      copy:
+        dest: /etc/default/prometheus-node-exporter
+        owner: root
+        group: root
+        mode: "0644"
+        content: |
+           ARGS="--collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$"
+      notify: Restart Node Exporter
+
+    - name: Ensure Node Exporter is running
+      systemd:
+        name: prometheus-node-exporter
+        state: started
+        enabled: true
+
+  handlers:
+    - name: Restart Node Exporter
+      systemd:
+        name: prometheus-node-exporter
+        state: restarted

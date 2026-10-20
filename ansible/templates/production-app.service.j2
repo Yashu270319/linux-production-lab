@@ -1,0 +1,14 @@
+[Unit]
+Description=Production Lab Backend Service
+After=network.target
+
+[Service]
+Type=simple
+User=ops
+WorkingDirectory=/opt/app
+ExecStart=/usr/bin/python3 -m http.server 8080 --directory /opt/app
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

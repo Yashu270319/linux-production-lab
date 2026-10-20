@@ -1,0 +1,58 @@
+# Terraform state, plans, and local provider cache
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Live monitoring databases and recovery backups
+/data/
+/backups/
+
+# SSH credentials and private keys
+docker/server/authorized_keys
+*.pem
+*.key
+id_rsa
+id_ed25519
+.ssh/
+
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+*credentials*
+secrets.yml
+secrets.yaml
+
+# Python-generated files
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Ensure Terraform's local working directory is never committed
+**/.terraform/
+**/.terraform/**
+
+# Local SSH authorization files and private keys
+**/authorized_keys
+**/id_rsa
+**/id_ed25519
+**/*.pem
+**/*.key
+
+# Terraform local working directory and provider cache
+**/.terraform/
+**/.terraform/**
