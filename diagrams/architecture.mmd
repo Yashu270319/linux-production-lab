@@ -1,0 +1,22 @@
+flowchart TB
+    subgraph HOST["Linux Host — Docker Engine"]
+        subgraph NET["Docker Bridge Network: production-net · 10.10.0.0/24"]
+            N["nginx-01<br/>10.10.0.10<br/>Nginx Reverse Proxy"]
+            A1["app-01<br/>10.10.0.11<br/>Application Service"]
+            A2["app-02<br/>10.10.0.12<br/>Application Service"]
+            DB["db-01<br/>10.10.0.20<br/>Linux Infrastructure Node"]
+            M["monitoring-01<br/>10.10.0.30<br/>Prometheus + Grafana"]
+        end
+    end
+
+    N -->|HTTP reverse proxy| A1
+    N -->|HTTP reverse proxy| A2
+
+    N -.->|Node Exporter :9100| M
+    A1 -.->|Node Exporter :9100| M
+    A2 -.->|Node Exporter :9100| M
+    DB -.->|Node Exporter :9100| M
+
+    M --- P["Prometheus<br/>Collects metrics"]
+    M --- G["Grafana<br/>Visualizes metrics"]
+    G -->|Queries| P

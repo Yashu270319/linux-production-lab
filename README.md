@@ -21,6 +21,8 @@ The topology represents infrastructure roles for learning purposes.
 It is not a production cloud deployment, and the database-role node should
 not be assumed to run a database service unless separately configured.
 
+See the [architecture diagram](diagrams/architecture.mmd) for the topology and the [setup guide](docs/SETUP.md) for reproduction instructions.
+
 ## Technology stack
 
 - **Docker:** isolated Linux environments and networking
