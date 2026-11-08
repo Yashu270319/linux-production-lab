@@ -1,4 +1,4 @@
-# INC-002: High CPU Utilization on app-01
+# INC-003: High CPU Utilization on app-01
 
 ## Incident Summary
 - **Affected host:** app-01

@@ -1,6 +1,6 @@
 # Incident Report: Monitoring Stack Disruption After Container Replacement
 
-**Incident ID:** INC-001
+**Incident ID:** INC-002
 **Environment:** Local Linux Production Lab
 **Severity:** SEV-2 (Lab monitoring outage; no external production impact)
 **Status:** Resolved
