@@ -142,17 +142,30 @@ not configured in this project.
 - [Incident: High CPU on app-01](docs/incidents/INC-003-high-cpu-app-01.md)
 - [Architecture Diagram Source](diagrams/architecture.mmd)
 
-## Evidence and screenshots
+## Monitoring and infrastructure evidence
 
-Screenshots of the actual running environment will be maintained in
-`screenshots/` as the project documentation is expanded.
+The following screenshots capture the running Linux lab and its monitoring
+configuration.
 
-Planned evidence:
-- Docker infrastructure and network state.
-- Prometheus target health.
-- Grafana Linux monitoring dashboards.
-- Application and reverse-proxy verification.
-- Incident investigation and recovery evidence.
+### Grafana Linux monitoring dashboard
+
+Four panels showing CPU utilization, memory utilization, root filesystem
+utilization, and network traffic across the five Linux nodes.
+
+![Grafana Linux monitoring dashboard](docs/screenshots/grafana-linux-dashboard.jpg)
+
+### Prometheus and service verification
+
+Terminal evidence showing Prometheus target health and monitoring endpoint
+checks.
+
+![Prometheus and service verification](docs/screenshots/prometheus-targets.jpg)
+
+### Infrastructure verification
+
+Screenshot of the Linux lab environment and its operational verification.
+
+![Infrastructure verification](docs/screenshots/infrastructure-containers.jpg)
 
 ## Scope and limitations
 
